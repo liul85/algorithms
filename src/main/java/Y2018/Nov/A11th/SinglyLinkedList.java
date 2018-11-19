@@ -1,13 +1,13 @@
 package Y2018.Nov.A11th;
 
-public class SingleLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable> {
     private Node<T> head;
 
-    public SingleLinkedList() {
+    public SinglyLinkedList() {
 
     }
 
-    public SingleLinkedList(Node<T> head) {
+    public SinglyLinkedList(Node<T> head) {
         this.head = head;
     }
 
@@ -74,9 +74,9 @@ public class SingleLinkedList<T> {
         return node.data == value;
     }
 
-    public SingleLinkedList reverse() {
+    public SinglyLinkedList reverse() {
         if (head == null) {
-            return new SingleLinkedList<T>(null);
+            return new SinglyLinkedList<T>(null);
         }
 
         Node<T> current = new Node<>(head.data, head.next);
@@ -93,7 +93,7 @@ public class SingleLinkedList<T> {
             current = nextNode;
         }
 
-        return new SingleLinkedList<T>(headNode);
+        return new SinglyLinkedList<T>(headNode);
     }
 
     public Node<T> getNodeByIndex(int index) {
@@ -111,8 +111,8 @@ public class SingleLinkedList<T> {
     public boolean circled() {
         if (head == null) return false;
 
-        Node slow = head;
-        Node fast = head.next;
+        Node<T> slow = head;
+        Node<T> fast = head.next;
 
         while (slow != null && fast != null) {
             if (slow == fast) {
@@ -124,6 +124,51 @@ public class SingleLinkedList<T> {
         }
 
         return false;
+    }
+
+    public SinglyLinkedList<T> sortedMerge(SinglyLinkedList<T> rightLinkedList) {
+        Node<T> rightHead = rightLinkedList.getNodeByIndex(0);
+        if (rightHead == null) {
+            return this;
+        }
+
+        if (head == null) {
+            return rightLinkedList;
+        }
+
+        Node<T> lHead = new Node<>(head.data, head.next);
+        Node<T> rHead = new Node<>(rightHead.data, rightHead.next);
+        Node<T> newHead;
+
+        if (lHead.data.compareTo(rHead.data) < 0) {
+            newHead = lHead;
+            lHead = lHead.next;
+        } else {
+            newHead = rHead;
+            rHead = rHead.next;
+        }
+
+        Node<T> temp = newHead;
+
+        while (lHead != null && rHead != null) {
+            if (lHead.data.compareTo(rHead.data) < 0) {
+                temp.next = new Node<>(lHead.data, lHead.next);
+                lHead = lHead.next;
+            } else {
+                temp.next = new Node<>(rHead.data, rHead.next);
+                rHead = rHead.next;
+            }
+
+            temp = temp.next;
+        }
+
+        if (lHead != null) {
+            temp.next = new Node<>(lHead.data, lHead.next);
+        } else {
+            temp.next = new Node<>(rHead.data, rHead.next);
+        }
+
+        return new SinglyLinkedList<>(newHead);
     }
 
     public static class Node<K> {
