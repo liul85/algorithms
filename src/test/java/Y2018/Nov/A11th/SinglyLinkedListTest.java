@@ -148,4 +148,36 @@ public class SinglyLinkedListTest {
         assertThat(mergedList.getLast(), is(5));
     }
 
+    @Test
+    public void shouldReturnNullWhenFindMiddleNodeForEmptyList() {
+        Node middleNode = singlyLinkedList.findMiddleNode();
+        assertThat(middleNode, is(nullValue()));
+    }
+
+    @Test
+    public void shouldFindMiddleNodeWhenLengthOfListOdd() {
+        singlyLinkedList.insert(1);
+        singlyLinkedList.insert(2);
+        singlyLinkedList.insert(3);
+        singlyLinkedList.insert(4);
+        singlyLinkedList.insert(5);
+
+        Node middleNode = singlyLinkedList.findMiddleNode();
+        assertThat(middleNode.getData(), is(3));
+
+    }
+
+    @Test
+    public void shouldFindMiddleNodeWhenLengthOfListEven() {
+        singlyLinkedList.insert(1);
+        singlyLinkedList.insert(2);
+        singlyLinkedList.insert(3);
+        singlyLinkedList.insert(4);
+        singlyLinkedList.insert(5);
+        singlyLinkedList.insert(6);
+
+        Node middleNode = singlyLinkedList.findMiddleNode();
+        assertThat(middleNode.getData(), is(4));
+    }
+
 }

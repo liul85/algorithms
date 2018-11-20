@@ -171,6 +171,20 @@ public class SinglyLinkedList<T extends Comparable> {
         return new SinglyLinkedList<>(newHead);
     }
 
+    public Node findMiddleNode() {
+        if (head == null) return null;
+
+        Node<T> slow = head;
+        Node<T> fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
     public static class Node<K> {
         private Node<K> next;
         private K data;
@@ -186,6 +200,10 @@ public class SinglyLinkedList<T extends Comparable> {
 
         public void setNext(Node next) {
             this.next = next;
+        }
+
+        public K getData() {
+            return data;
         }
     }
 
