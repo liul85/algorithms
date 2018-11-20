@@ -42,6 +42,7 @@ public class SinglyLinkedListTest {
         assertThat(singlyLinkedList.get(0), is(1));
         assertThat(singlyLinkedList.get(1), is(2));
         assertThat(singlyLinkedList.get(2), is(3));
+        assertThat(singlyLinkedList.get(3), is(nullValue()));
     }
 
     @Test
@@ -180,4 +181,54 @@ public class SinglyLinkedListTest {
         assertThat(middleNode.getData(), is(4));
     }
 
+    @Test
+    public void shouldDeleteLastNthNodeForEmptyList() {
+        singlyLinkedList.deleteNth(2);
+        assertThat(singlyLinkedList.getFirst(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldDeleteLastNthNodeForOnlyOneNode() {
+        singlyLinkedList.insert(1);
+        singlyLinkedList.deleteNth(1);
+        assertThat(singlyLinkedList.getFirst(), is(nullValue()));
+    }
+
+    @Test
+    public void shouldSupportDeleteLastNthNodeWhenIndexExceedLength() {
+        singlyLinkedList.insert(1);
+        singlyLinkedList.insert(2);
+        singlyLinkedList.insert(3);
+
+        singlyLinkedList.deleteNth(4);
+        assertThat(singlyLinkedList.getFirst(), is(1));
+        assertThat(singlyLinkedList.get(1), is(2));
+        assertThat(singlyLinkedList.get(2), is(3));
+    }
+
+    @Test
+    public void shouldDeleteLastNthNode() {
+        singlyLinkedList.insert(1);
+        singlyLinkedList.insert(2);
+        singlyLinkedList.insert(3);
+        singlyLinkedList.insert(4);
+        singlyLinkedList.insert(5);
+        singlyLinkedList.insert(6);
+
+        singlyLinkedList.deleteNth(2);
+        assertThat(singlyLinkedList.get(4), is(6));
+    }
+
+    @Test
+    public void shouldDeleteLastNode() {
+        singlyLinkedList.insert(1);
+        singlyLinkedList.insert(2);
+        singlyLinkedList.insert(3);
+        singlyLinkedList.insert(4);
+        singlyLinkedList.insert(5);
+        singlyLinkedList.insert(6);
+
+        singlyLinkedList.deleteNth(1);
+        assertThat(singlyLinkedList.get(5), is(nullValue()));
+    }
 }

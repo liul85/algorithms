@@ -37,9 +37,13 @@ public class SinglyLinkedList<T extends Comparable> {
     public T get(int index) {
         int point = 0;
         Node<T> current = head;
-        while (point != index) {
+        while (point != index & current != null) {
             current = current.next;
             point++;
+        }
+
+        if (current == null) {
+            return null;
         }
 
         return current.data;
@@ -183,6 +187,33 @@ public class SinglyLinkedList<T extends Comparable> {
         }
 
         return slow;
+    }
+
+    public void deleteNth(int i) {
+        Node fast = head;
+        int p = 1;
+        while (fast != null && p < i) {
+            fast = fast.next;
+            p++;
+        }
+
+        if (fast == null) return;
+
+        Node slow = head;
+        Node prev = null;
+
+        while (fast.next != null) {
+            fast = fast.next;
+            prev = slow;
+            slow = slow.next;
+        }
+
+        if (prev == null) {
+            head = null;
+            return;
+        }
+
+        prev.next = prev.next.next;
     }
 
     public static class Node<K> {
