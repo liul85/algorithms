@@ -109,7 +109,6 @@ public class SinglyLinkedListTest {
     public void shouldReturnFalseWhenNOCircledNodes() {
         singlyLinkedList.insert(1);
         singlyLinkedList.insert(2);
-        singlyLinkedList.insert(3);
 
         assertThat(singlyLinkedList.circled(), is(false));
     }

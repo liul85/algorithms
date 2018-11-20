@@ -114,7 +114,7 @@ public class SinglyLinkedList<T extends Comparable> {
         Node<T> slow = head;
         Node<T> fast = head.next;
 
-        while (slow != null && fast != null) {
+        while (fast != null && fast.next != null) {
             if (slow == fast) {
                 return true;
             }
